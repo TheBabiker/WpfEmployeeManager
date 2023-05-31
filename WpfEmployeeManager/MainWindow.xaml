@@ -15,14 +15,45 @@
         <Label x:Name="lblEmail" Content="Email :" HorizontalAlignment="Left" Margin="31,56,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.092,-0.018"/>
         <Label x:Name="lblGender" Content="Gender :" HorizontalAlignment="Left" Margin="22,87,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.227,-0.365"/>
         <Label x:Name="lblStatus" Content="Status :" HorizontalAlignment="Left" Margin="28,118,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="81,34,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Margin="81,60,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="txtGender" HorizontalAlignment="Left" Margin="81,91,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="txtStatus" HorizontalAlignment="Left" Margin="81,122,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="txtEmployeeId" Visibility="Hidden" HorizontalAlignment="Left" Margin="81,11,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
-        <Button x:Name="btnSaveEmployee" Content="Save Employee" HorizontalAlignment="Left" Margin="81,154,0,0" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
-        <DataGrid x:Name="dgEmployee" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="138,100,10,24" Grid.Column="1"/>
-        <Button x:Name="btnLoadEmployees" Content="Load Employees" HorizontalAlignment="Left" Margin="138,75,0,0" VerticalAlignment="Top" Width="557" Grid.Column="1" Click="btnLoadEmployees_Click"/>
+        <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="81,34,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Margin="81,60,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="txtGender" HorizontalAlignment="Left" Margin="81,91,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="txtStatus" HorizontalAlignment="Left" Margin="81,122,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="txtEmployeeId" Visibility="Hidden" HorizontalAlignment="Left" Margin="81,11,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+        <Button x:Name="btnSaveEmployee" Content="Save Employee" HorizontalAlignment="Left" Margin="81,154,0,0"   VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2" Click="BtnSaveEmployee_Click"/>
+        <DataGrid x:Name="dgEmployee"  Margin="126,59,13,65"
+                  Grid.Column="1"
+                  CanUserAddRows="True"
+                  ItemsSource="{Binding}"
+                  AutoGenerateColumns="False"
+                  >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Employee Id" Binding="{Binding Path=id}"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Path=name}"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding Path=email}"/>
+                <DataGridTextColumn Header="Gender" Binding="{Binding Path=gender}"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding Path=status}"/>
+                <DataGridTemplateColumn Header="Edit Action">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="BtnEditEmployee">Edit</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Delete Action">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="BtnDeleteEmployee">Delete</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="btnLoadEmployees" Content="Load Employees" HorizontalAlignment="Left" Margin="125,34,0,0" VerticalAlignment="Top" Width="556" Grid.Column="1" Click="BtnLoadEmployees_Click"/>
+        <Label x:Name="lblMessage" Content="Msg" HorizontalAlignment="Left" Margin="81,179,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.334,7.42" Grid.ColumnSpan="2" Width="120"/>
 
     </Grid>
 </Window>
