@@ -19,7 +19,7 @@
         <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Margin="81,60,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
         <TextBox x:Name="txtGender" HorizontalAlignment="Left" Margin="81,91,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
         <TextBox x:Name="txtStatus" HorizontalAlignment="Left" Margin="81,122,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="txtEmployeeId" Visibility="Hidden" HorizontalAlignment="Left" Margin="81,11,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="txtEmployeeId" Visibility="Hidden" HorizontalAlignment="Left" Text="0" Margin="81,11,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
         <Button x:Name="btnSaveEmployee" Content="Save Employee" HorizontalAlignment="Left" Margin="81,154,0,0"   VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2" Click="BtnSaveEmployee_Click"/>
         <DataGrid x:Name="dgEmployee"  Margin="126,59,13,65"
                   Grid.Column="1"
