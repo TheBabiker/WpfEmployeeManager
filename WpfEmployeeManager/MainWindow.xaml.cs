@@ -1,23 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Newtonsoft.Json;
 using WpfEmployeeManager.Models;
-using System.Diagnostics;
 using System.Configuration;
-
+using System.IO;
+using Microsoft.Win32;
+using System.Linq;
 
 namespace WpfEmployeeManager
 {
@@ -26,6 +17,7 @@ namespace WpfEmployeeManager
     /// </summary>
     public partial class MainWindow : Window
     {   HttpClient client = new HttpClient();
+        private List<Employee> employees;
         public MainWindow()
         {
             client.BaseAddress = new Uri("https://gorest.co.in/public/v2/");
@@ -43,6 +35,12 @@ namespace WpfEmployeeManager
             this.GetEmployees();
         }
 
+        private void LoadEmployeesData(List<Employee> employees)
+        {
+            dgEmployee.DataContext = employees;
+            this.employees = employees;
+        }
+
         private async void GetEmployees()
         {
                 lblMessage.Content = "";
@@ -50,7 +48,12 @@ namespace WpfEmployeeManager
             {
                 var response = await client.GetStringAsync("users");
                 var employees = JsonConvert.DeserializeObject<List<Employee>>(response);
-                dgEmployee.DataContext = employees;
+
+                if(employees is not null )
+                {
+                this.LoadEmployeesData(employees);
+                }
+               
             }
             catch (Exception ex)
             {
@@ -117,13 +120,13 @@ namespace WpfEmployeeManager
                 if (employee.id == 0 && !string.IsNullOrEmpty(employee.name))
                 {
                     this.SaveEmployee(employee);
-                    lblMessage.Content = "Employee Saved";
+                    lblMessage.Content = "Employee Saved, reload list";
 
                 }
                 else if (employee.id != 0)
                 {
                     this.UpdateEmployee(employee);
-                    lblMessage.Content = "Employee Updated";
+                    lblMessage.Content = "Employee Updated, reload list";
 
                 }
 
@@ -140,7 +143,6 @@ namespace WpfEmployeeManager
             txtEmail.Text = "";
             txtGender.Text = "";
             txtStatus.Text = "";
-
 
         }
 
@@ -177,6 +179,44 @@ namespace WpfEmployeeManager
             this.DeleteEmployee(employee.id);
             
             this.GetEmployees();
+        }
+
+        private void ExportToCSV()
+        {
+            var builder = new StringBuilder();
+            builder.AppendLine("id, name, email, gender, status");
+            if (this.employees is null)
+            {
+                MessageBox.Show("No data have been loaded!, first you need to load your data");
+
+            }
+            else
+            {
+              foreach (var employee in this.employees)
+              {
+                builder.AppendLine($"{employee.id}, {employee.name}, {employee.email}, {employee.gender}, {employee.status}");
+              }
+
+              var csvData = builder.ToString();
+
+              var saveFileDialog = new SaveFileDialog
+              {
+                Filter = "CSV Files (*.csv)|*.csv",
+                FileName = "employees.csv"
+              };
+
+              if (saveFileDialog.ShowDialog() == true)
+              {
+                var filePath = saveFileDialog.FileName;
+                File.WriteAllText(filePath, csvData);
+                MessageBox.Show("CSV file exported successfully!");
+              }
+            }
+        }
+
+         void ButtonExport_Click(object sender, RoutedEventArgs e)
+        {
+            this.ExportToCSV();
         }
     }
 }

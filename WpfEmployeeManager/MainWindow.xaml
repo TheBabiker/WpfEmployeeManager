@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="43*"/>
+            <RowDefinition Height="19*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="19*"/>
             <ColumnDefinition Width="141*"/>
@@ -25,7 +29,7 @@
                   Grid.Column="1"
                   CanUserAddRows="True"
                   ItemsSource="{Binding}"
-                  AutoGenerateColumns="False"
+                  AutoGenerateColumns="False" Grid.RowSpan="2"
                   >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Employee Id" Binding="{Binding Path=id}"/>
@@ -52,8 +56,9 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="btnLoadEmployees" Content="Load Employees" HorizontalAlignment="Left" Margin="125,34,0,0" VerticalAlignment="Top" Width="556" Grid.Column="1" Click="BtnLoadEmployees_Click"/>
-        <Label x:Name="lblMessage" Content="Msg" HorizontalAlignment="Left" Margin="81,179,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.334,7.42" Grid.ColumnSpan="2" Width="120"/>
+        <Button x:Name="btnLoadEmployees" Content="Load Employees" HorizontalAlignment="Left" Margin="125,34,0,0" VerticalAlignment="Top" Width="284" Grid.Column="1" Click="BtnLoadEmployees_Click"/>
+        <Label x:Name="lblMessage" Content="Msg" HorizontalAlignment="Left" Margin="31,185,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.334,7.42" Grid.ColumnSpan="2" Width="170" Height="75"/>
+        <Button Grid.Column="1" Content="Export Data" HorizontalAlignment="Left" Margin="416,34,0,0" VerticalAlignment="Top" Width="262" Click="ButtonExport_Click"/>
 
     </Grid>
 </Window>
